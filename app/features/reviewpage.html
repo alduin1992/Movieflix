@@ -1,0 +1,152 @@
+<html>
+    <head>
+        <title>Book</title>
+        <style>
+
+  </style>
+
+        
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="../../_core/css/review.css">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script>
+          $(function() {
+             var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", '/books/all', false ); // false for synchronous request
+            xmlHttp.send( null );
+            var books =  xmlHttp.responseText.split(",");
+
+            $( "#search" ).autocomplete({
+              source: books
+            });
+          });
+            $("#searchButton").click(function(){
+
+            });
+        </script>
+
+        <style>
+        body {
+          background:   #595959 !important;
+        }
+        </style>
+
+    </head>
+    <ul>
+  <li><a class="active" href="main.html">Home</a></li>
+  <li><a href="main.html">News</a></li>
+  <li><a href="main.html">Add title</a></li>
+  <li id="out"><a href="SignIn/index.html">Sign Out</a></li>
+</ul>
+      
+      
+    </body>
+</html>
+
+
+<script>
+  function showReview()
+  {
+    document.getElementById("review").style.display = "block";
+  }
+</script>
+<div class="containter">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="panel panel-default">
+        <div class="panel-heading"> <strong> Deadpool </strong> <a class="btn btn-success btn-sm pull-right" href="/books/done/{{$book->id}}">Add to your Done list</a></div>
+        <div class="panel-body">
+          <div class="row">
+            
+              <div class="col-md-4"><img src="pool.jpg" height="250" width="250"/></div>
+           
+            
+              <div class="col-md-8"><strong> Overall Score: 3/5</strong><p> The story of deadpool</p> </div>
+            
+          </div>
+          <div class="row">
+            <br/>
+            <div class="col-md-2"><center><a class="btn btn-info btn-large" href="/authors/list/{{$book->author()->get()->first()->id}}"> Imdb </a></center></div>
+            <div class="col-md-6"></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-1"><a class="btn btn-danger btn-large" onclick="showReview();">Write Review</a> </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-1"><a class="btn btn-success btn-large" href="/books/read/{{$book->id}}">Watch</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="review" class="row" style="display:none;">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="panel panel-success">
+        <div class="panel-heading"> <strong> Write a review for Deadpool </strong></div>
+        <div class="panel-body">
+          <div class="row">
+            <form method="post" action="/review/">
+              <div class="form-group col-md-12">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="book_id" value="{{ $book->id }}"/>
+                <label>Review Text: </label>
+                <textarea class="form-control input-sm" name="review_text"></textarea>
+              </div>
+              <div class="form-group col-md-12">
+                <label>Review Rating: </label>
+                <span class="starRating">
+                  <input id="rating5" type="radio" name="rating" value="5">
+                  <label for="rating5">5</label>
+                  <input id="rating4" type="radio" name="rating" value="4">
+                  <label for="rating4">4</label>
+                  <input id="rating3" type="radio" name="rating" value="3">
+                  <label for="rating3">3</label>
+                  <input id="rating2" type="radio" name="rating" value="2">
+                  <label for="rating2">2</label>
+                  <input id="rating1" type="radio" name="rating" value="1">
+                  <label for="rating1">1</label>
+                </span>
+              </div>
+              <div class="form-group col-md-12">
+                <input type="submit" class="btn btn-success pull-right"></input>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="panel panel-danger">
+          <div class="panel-heading"> <strong> See reviews from readers of Deadpool </strong></div>
+          <div class="col-md-10"><strong> Displaying 1 reviews </strong><br/></div>
+          
+          <div class="row">
+            <br/>
+            <div class="col-md-10 col-md-offset-1 ">
+              <div class="panel panel-default">
+                <div class="panel-heading"> <strong> user_name </strong> <p class="pull-right"> 3/27/2016 17:00</p></div>
+                <div class="panel-body">
+                  <p> Superb movie </p>
+                  <br/>
+                  <strong> Score: 3/5 </strong>
+                </div>
+              </div>
+            </div>
+          </div>
+       
+        </div>
+      </div>
+    </div>
+  
+</div>
